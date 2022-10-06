@@ -18,6 +18,12 @@ func Map[V any, T any](items []V, conversion func(V) T) []T {
 	return results
 }
 
+func ForEach[V any, T any](items []V, action func(V) T) {
+	for _, item := range items {
+		action(item)
+	}
+}
+
 func Reduce[V any, A any](items []V, operation func(V, A) A, startingAccumulator A) A {
 	for _, item := range items {
 		startingAccumulator = operation(item, startingAccumulator)
