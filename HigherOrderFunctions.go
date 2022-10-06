@@ -1,9 +1,5 @@
 package main
 
-import (
-	"errors"
-)
-
 func Filter[V any](items []V, test func(V) bool) []V {
 	results := make([]V, 0)
 	for _, item := range items {
@@ -56,11 +52,11 @@ func NoneMatch[V any](items []V, test func(V) bool) bool {
 	return true
 }
 
-func FindFirst[V any](items []V, test func(V) bool) (V, error) {
+func FindFirst[V any](items []V, test func(V) bool) Optional[V] {
 	for _, item := range items {
 		if test(item) {
-			return item, nil
+			return Of(item)
 		}
 	}
-	return nil, errors.New("no matches found")
+	return None[V]()
 }
