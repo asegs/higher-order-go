@@ -57,7 +57,6 @@ func (s *Stream[T]) ToSlice() []T {
 	result := make([]T, s.Len())
 	for i := 0; !s.Finished(); i++ {
 		result[i] = s.Get()
-		fmt.Println(s.Get())
 		s.Next()
 	}
 	return result
@@ -103,6 +102,8 @@ func main() {
 	items[3] = 28
 	items[4] = -8
 	from := StreamFrom(items)
+	fmt.Println(from.Filter(func(a int) bool { return a < 20 }).ToSlice())
+	from.Reset()
 	two := SplitStream(from, 2)
 	fmt.Println(two[0].ToSlice())
 	fmt.Println(two[1].ToSlice())
