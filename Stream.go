@@ -93,19 +93,3 @@ func SplitStream[T any](stream Stream[T], into int) []Stream[T] {
 	}
 	return streams
 }
-
-func main() {
-	items := make([]int, 5)
-	items[0] = 12
-	items[1] = 13
-	items[2] = 100
-	items[3] = 28
-	items[4] = -8
-	from := StreamFrom(items)
-	fmt.Println(from.Filter(func(a int) bool { return a < 20 }).ToSlice())
-	from.Reset()
-	two := SplitStream(from, 2)
-	fmt.Println(two[0].ToSlice())
-	fmt.Println(two[1].ToSlice())
-	fmt.Println(from.ToSlice())
-}
